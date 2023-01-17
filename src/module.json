@@ -1,7 +1,7 @@
 {
-  "id": "tidy5e-sergio",
-  "name": "tidy5e-sergio",
-  "title": "Tidy5e sergio",
+  "id": "tidy5e-sheet",
+  "name": "tidy5e-sheet",
+  "title": "Tidy5e Sheet",
   "description": "Replaces the default D&D 5e character and NPC sheet with an alternate layout focused on a cleaner UI",
   "version": "0.5.21",
   "authors": [
