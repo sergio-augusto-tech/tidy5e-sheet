@@ -68,7 +68,7 @@
 				position: absolute;
 		    top: -2px;
 		    left: 4px;
-		    color: rgba(0,200,100,1);
+		    color: rgba(0, 200, 100, 1);
 		    text-shadow: 0 0px 2px var(--t5e-primary-color);
 		    font-size: 10px;
 			}
@@ -98,8 +98,8 @@
 				box-shadow: 0 0 0 2px var(--t5e-innate-outline);
 			}
 
-			&.prepared.alwaysPrepared {
-				box-shadow: 0 0 0 2px var(--t5e-always-prepared-outline);
+			&.prepared.alwaysprepared {
+				box-shadow: 0 0 0 2px var(--t5e-alwaysprepared-outline);
 			}
 
 			&.equipped .item-image {
@@ -127,8 +127,8 @@
 				border-radius: 5px;
 			}
 
-			&.prepared.alwaysPrepared .item-image {
-    		box-shadow: 0 0 1px 1px inset var(--t5e-always-prepared-accent);
+			&.prepared.alwaysprepared .item-image {
+    		box-shadow: 0 0 1px 1px inset var(--t5e-alwaysprepared-accent);
 			}
 
 			&.magic-item {
@@ -170,7 +170,7 @@
 
 					input {
 						height: 14px;
-				    text-shadow: 0 0 5px rgba(0,0,0,1);
+				    text-shadow: 0 0 5px rgba(0, 0, 0, 1);
 				    color: var(--t5e-stat-font);
 				    text-align: right;
 				    min-width: 0;
@@ -190,7 +190,7 @@
 					.fa-bolt {
 						font-size: 8px;
 						margin-right: 1px;
-						text-shadow: 0 0 5px rgba(0,0,0,1);
+						text-shadow: 0 0 5px rgba(0, 0, 0, 1);
 					}
 
 				}

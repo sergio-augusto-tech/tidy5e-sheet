@@ -3,12 +3,12 @@ import {settingsList} from './settingsList.js';
 export class Tidy5eUserSettings extends FormApplication {
 	static init() {
 		game.settings.registerMenu('tidy5e-sheet', 'userMenu', {
-		name: '',
-		label: game.i18n.localize("TIDY5E.Settings.SheetMenu.label"),
-		icon: 'fas fa-cog',
-		type: Tidy5eUserSettings,
-		restricted: false
-    });
+			name: '',
+			label: game.i18n.localize("TIDY5E.Settings.SheetMenu.label"),
+			icon: 'fas fa-cog',
+			type: Tidy5eUserSettings,
+			restricted: false
+		});
 
 		settingsList();
 
@@ -121,7 +121,27 @@ export class Tidy5eUserSettings extends FormApplication {
 			'lockHpMaxChanges',
 			'lockLevelSelector',
 			'lockConfigureSheet',
-			'lockItemQuantity'
+			'lockItemQuantity',
+
+			'colorPickerEnabled',
+			'colorPickerEquipped',
+			'colorPickerEquippedOutline',
+			'colorPickerEquippedAccent',
+			'colorPickerPrepared',
+			'colorPickerPreparedOutline',
+			'colorPickerPreparedAccent',
+			'colorPickerPact',
+			'colorPickerPactOutline',
+			'colorPickerPactAccent',
+			'colorPickerAtWill',
+			'colorPickerAtWillOutline',
+			'colorPickerAtWillAccent',
+			'colorPickerInnate',
+			'colorPickerInnateOutline',
+			'colorPickerInnateAccent',
+			'colorPickerAlwaysPrepared',
+			'colorPickerAlwaysPreparedOutline',
+			'colorPickerAlwaysPreparedAccent'
 		]
 
 		// return game.settings.get('tidy5e-sheet', 'user-settings');

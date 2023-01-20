@@ -14,6 +14,8 @@ import { applyLazyMoney } from "./app/lazymoney.js";
 import { applyLazyExp, applyLazyHp } from "./app/lazyExpAndHp.js";
 import { applyLocksCharacterSheet } from "./app/lockers.js";
 import { applySpellClassFilterActorSheet } from "./app/spellClassFilter.js";
+import { HexToRGBA, colorPicker, mapDefaultColorsRGBA, mapDefaultColorsDarkRGBA, mapDefaultColorsDarkRGB, mapDefaultColorsRGB, applyColorPickerCustomization } from "./app/color-picker.js";
+import { migrateFor21X } from "./app/migration-util.js";
 
 let position = 0;
 
@@ -55,15 +57,44 @@ export class Tidy5eSheet extends dnd5e.applications.actor
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
    */
-  async getData() {
-    const context = await super.getData();
+  async getData(options) {
+    const context = await super.getData(options);
 
     Object.keys(context.abilities).forEach((id) => {
       context.abilities[id].abbr = CONFIG.DND5E.abilityAbbreviations[id];
     });
 
     // Journal HTML enrichment
-    context.journalHTML = await TextEditor.enrichHTML(context.actor.flags['tidy5e-sheet']?.details?.notes?.value, {
+
+    context.journalNotes1HTML = await TextEditor.enrichHTML(context.actor.flags['tidy5e-sheet']?.notes1?.value, {
+      secrets: this.actor.isOwner,
+      rollData: context.rollData,
+      async: true,
+      relativeTo: this.actor
+    });
+
+    context.journalNotes2HTML = await TextEditor.enrichHTML(context.actor.flags['tidy5e-sheet']?.notes2?.value, {
+      secrets: this.actor.isOwner,
+      rollData: context.rollData,
+      async: true,
+      relativeTo: this.actor
+    });
+
+    context.journalNotes3HTML = await TextEditor.enrichHTML(context.actor.flags['tidy5e-sheet']?.notes3?.value, {
+      secrets: this.actor.isOwner,
+      rollData: context.rollData,
+      async: true,
+      relativeTo: this.actor
+    });
+
+    context.journalNotes4HTML = await TextEditor.enrichHTML(context.actor.flags['tidy5e-sheet']?.notes4?.value, {
+      secrets: this.actor.isOwner,
+      rollData: context.rollData,
+      async: true,
+      relativeTo: this.actor
+    });
+
+    context.journalHTML = await TextEditor.enrichHTML(context.actor.flags['tidy5e-sheet']?.notes?.value, {
       secrets: this.actor.isOwner,
       rollData: context.rollData,
       async: true,
@@ -72,6 +103,7 @@ export class Tidy5eSheet extends dnd5e.applications.actor
 
     context.appId = this.appId;
     context.allowCantripToBePreparedOnContext = game.settings.get("tidy5e-sheet", "allowCantripToBePreparedOnContext");
+    context.isGM = game.user.isGM;
     return context;
   }
 
@@ -244,7 +276,7 @@ export class Tidy5eSheet extends dnd5e.applications.actor
         actionsLayout.html(actionsTabHtml);
       }
     } catch (e) {
-      // log(true, e);
+      console.error(e.message)
     }
 
     return html;
@@ -358,7 +390,9 @@ async function editProtection(app, html, data) {
         resourcesUsed++;
       }
     });
-    if (resourcesUsed == 0) html.find(".resources").hide();
+    if (resourcesUsed == 0) {
+      html.find(".resources").hide();
+    }
 
     let itemContainer = html.find(
       ".inventory-list.items-list, .effects-list.items-list"
@@ -787,7 +821,15 @@ async function setSheetClasses(app, html, data) {
   $(".info-card-hint .key").html(
     game.settings.get("tidy5e-sheet", "itemCardsFixKey")
   );
+
+  applyColorPickerCustomization(html);
 }
+
+// Register Tidy5e Sheet and make default character sheet
+Actors.registerSheet("dnd5e", Tidy5eSheet, {
+  types: ["character"],
+  makeDefault: true,
+});
 
 // Preload tidy5e Handlebars Templates
 Hooks.once("init", () => {
@@ -796,12 +838,6 @@ Hooks.once("init", () => {
 
   // init user settings menu
   Tidy5eUserSettings.init();
-});
-
-// Register Tidy5e Sheet and make default character sheet
-Actors.registerSheet("dnd5e", Tidy5eSheet, {
-  types: ["character"],
-  makeDefault: true,
 });
 
 Hooks.on("renderTidy5eSheet", (app, html, data) => {
@@ -827,10 +863,20 @@ Hooks.on("renderTidy5eSheet", (app, html, data) => {
 
   // NOTE LOCKS ARE THE LAST THING TO SET
   applyLocksCharacterSheet(app, html, data);
+
+  // Little Patch for migration to system dnd 2.1.X
+  // migrateFor21X(app, html, data);
 });
 
 Hooks.once("ready", (app, html, data) => {
   // console.log("Tidy5e Sheet is ready!");
+  if (!game.modules.get("colorsettings")?.active && game.user?.isGM) {
+		let word = "install and activate";
+		if (game.modules.get("colorsettings")) word = "activate";
+    const errorText = `tidy-sheet | Requires the 'colorsettings' module. Please ${word} it.`.replace("<br>", "\n");
+    ui.notifications?.error(errorText);
+		throw new Error(errorText);
+	}
 });
 
 Hooks.on('renderAbilityUseDialog', (application, html, context) => {

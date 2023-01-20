@@ -3,7 +3,7 @@
   "name": "tidy5e-sheet",
   "title": "Tidy5e Sheet",
   "description": "Replaces the default D&D 5e character and NPC sheet with an alternate layout focused on a cleaner UI",
-  "version": "0.5.21",
+  "version": "0.8.0",
   "authors": [
     {
       "name": "sednec#3813"
@@ -14,33 +14,6 @@
   "compatibility": {
     "minimum": "10.283",
     "verified": "10"
-  },
-  "system": "dnd5e",
-  "relationships": {
-    "systems": [
-      {
-        "id": "dnd5e",
-        "manifest": "https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json",
-        "compatibility": {
-          "minimum": "2.0.0",
-          "verified": "2.0"
-        }
-      }
-    ],
-    "conflicts": [
-			{
-				"id": "spell-level-buttons-for-dnd5e",
-				"description": "Redundancy of features you can disable 'Spell Level Buttons for DnD 5e' module if you want"
-			},
-      {
-				"id": "lazymoney",
-				"description": "Redundancy of features you can disable 'Lazy Money' module if you want"
-			},
-      {
-				"id": "spell-level-buttons-for-dnd5e",
-				"description": "Redundancy of features you can disable 'Spell Level Buttons for DnD 5e' module if you want"
-			}
-		]
   },
   "esmodules": [
     "./scripts/tidy5e-sheet.js",

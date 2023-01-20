@@ -46,6 +46,13 @@
 	padding: 0 4px;
 }
 
+.max-xp {
+	width: calc(8.5ch + 0.3rem);
+	height: 16px;
+	text-align: left;
+	padding: 0 4px;
+}
+
 .max-xp::before {
 	content: '/';
 	margin-right: .15rem;
@@ -53,6 +60,7 @@
 
 .xp-tracker {
 	margin-right: .5rem;
+	width: 50%;
 }
 
 .noxp .xp-tracker {
@@ -400,7 +408,7 @@
   top: 44%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 40px;
+  font-size: 35px;
   height: 40px;
   font-weight: 700;
   margin: 0 auto;
@@ -433,6 +441,18 @@
 .header-attributes .ac-display .config-button {
 	display: block;
 	height: 100%;
+}
+
+.header-attributes .initiative .config-button {
+	position: absolute;
+	bottom: -15px;
+	right: calc(50% - 12px);
+	font-size: 10px;
+	color: var(--t5e-tertiary-color);
+
+	&:hover {
+		color: var(--t5e-primary-color);
+	}
 }
 
 .header-attributes .initiative {
@@ -587,13 +607,13 @@ input.ini-mod {
 		}
 
 		.proficiency-toggle {
-	    position: absolute;
-	    font-size: 10px;
-	    opacity: .4;
-	    transition: opacity .3s ease;
-	    left: calc(50% - 12px);
-	    bottom: -14px;
-	    // transform: translateX(-50%);
+			position: absolute;
+			font-size: 10px;
+			opacity: .4;
+			transition: opacity .3s ease;
+			left: calc(50% - 12px);
+			bottom: -14px;
+			// transform: translateX(-50%);
 		}
 
 		.ability-modifiers .ability-proficiency {
@@ -612,7 +632,7 @@ input.ini-mod {
 
 		.config-button {
 			position: absolute;
-			bottom: -11px;
+			bottom: -15px;
 			right: calc(50% - 12px);
 			font-size: 10px;
 			color: var(--t5e-tertiary-color);
